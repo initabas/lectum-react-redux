@@ -11,25 +11,26 @@ import Like from 'components/Like';
 
 export default class Post extends Component {
     static propTypes = {
-        author:     string.isRequired,
-        avatar:     string.isRequired,
-        comment:    string.isRequired,
-        created:    number.isRequired,
-        deletePost: func.isRequired,
-        firstName:  string.isRequired,
-        id:         string.isRequired,
-        lastName:   string.isRequired,
-        likePost:   func.isRequired,
-        likes:      arrayOf(
+        author:      string.isRequired,
+        avatar:      string.isRequired,
+        comment:     string.isRequired,
+        created:     number.isRequired,
+        deletePost:  func.isRequired,
+        dislikePost: func.isRequired,
+        firstName:   string.isRequired,
+        id:          string.isRequired,
+        lastName:    string.isRequired,
+        likePost:    func.isRequired,
+        likes:       arrayOf(
             shape({
                 id:        string.isRequired,
                 firstName: string.isRequired,
-                lastName:  string.isRequired
+                lastName:  string.isRequired,
             }).isRequired
         ).isRequired,
         userFirstName: string.isRequired,
         userId:        string.isRequired,
-        userLastName:  string.isRequired
+        userLastName:  string.isRequired,
     };
 
     constructor () {
@@ -62,6 +63,7 @@ export default class Post extends Component {
             avatar,
             comment,
             created,
+            dislikePost,
             firstName,
             id,
             lastName,
@@ -69,12 +71,10 @@ export default class Post extends Component {
             likePost,
             userId,
             userFirstName,
-            userLastName
+            userLastName,
         } = this.props;
 
         const cross = this.getCross();
-
-        console.log('•λ•', likes);
 
         return (
             <section className = { Styles.post }>
@@ -84,6 +84,7 @@ export default class Post extends Component {
                 <time>{moment.unix(created).format('MMMM D h:mm:ss a')}</time>
                 <p>{comment}</p>
                 <Like
+                    dislikePost = { dislikePost }
                     id = { id }
                     likePost = { likePost }
                     likes = { likes }

@@ -14,7 +14,7 @@ import Input from 'components/Input';
 export default class SignupForm extends Component {
     static propTypes = {
         authFetching: bool.isRequired,
-        signup:       func.isRequired
+        signup:       func.isRequired,
     };
 
     constructor () {
@@ -31,11 +31,11 @@ export default class SignupForm extends Component {
         const { authFetching } = this.props;
 
         const disabledInputStyle = cx({
-            [Styles.disabledInput]: authFetching
+            [Styles.disabledInput]: authFetching,
         });
 
         const buttonStyle = cx(Styles.signupSubmit, {
-            [Styles.disabledButton]: authFetching
+            [Styles.disabledButton]: authFetching,
         });
 
         return (
@@ -46,7 +46,7 @@ export default class SignupForm extends Component {
                 <Errors
                     messages = { {
                         valid:
-                            'Your first name should be at least 1 symbol long'
+                            'Your first name should be at least 1 symbol long',
                     } }
                     model = 'forms.signup.firstName'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -56,7 +56,7 @@ export default class SignupForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (firstName) => validateLength(firstName, 1)
+                        valid: (firstName) => validateLength(firstName, 1),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.signup.firstName'
@@ -67,7 +67,7 @@ export default class SignupForm extends Component {
                 <Errors
                     messages = { {
                         valid:
-                            'Your last name should be at least 1 symbol long'
+                            'Your last name should be at least 1 symbol long',
                     } }
                     model = 'forms.signup.lastName'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -77,7 +77,7 @@ export default class SignupForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (lastName) => validateLength(lastName, 1)
+                        valid: (lastName) => validateLength(lastName, 1),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.signup.lastName'
@@ -87,7 +87,7 @@ export default class SignupForm extends Component {
                 />
                 <Errors
                     messages = { {
-                        valid: 'Please provide a valid email'
+                        valid: 'Please provide a valid email',
                     } }
                     model = 'forms.signup.email'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -97,7 +97,7 @@ export default class SignupForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (email) => !validateEmail(email)
+                        valid: (email) => !validateEmail(email),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.signup.email'
@@ -107,7 +107,7 @@ export default class SignupForm extends Component {
                 />
                 <Errors
                     messages = { {
-                        valid: `A password should be at least 5 symbols long`
+                        valid: `A password should be at least 5 symbols long`,
                     } }
                     model = 'forms.signup.password'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -117,7 +117,7 @@ export default class SignupForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (password) => validateLength(password, 5)
+                        valid: (password) => validateLength(password, 5),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.signup.password'
@@ -127,7 +127,7 @@ export default class SignupForm extends Component {
                 />
                 <Errors
                     messages = { {
-                        valid: `An invite key should be 12 symbols long`
+                        valid: `An invite key should be 12 symbols long`,
                     } }
                     model = 'forms.signup.invite'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -137,7 +137,7 @@ export default class SignupForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (invite) => validateLength(invite, 12, 12)
+                        valid: (invite) => validateLength(invite, 12, 12),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.signup.invite'

@@ -19,7 +19,7 @@ export default class Profile extends Component {
         avatarFetching:  bool.isRequired,
         profile:         object.isRequired,
         profileEditing:  bool.isRequired,
-        profileFetching: bool.isRequired
+        profileFetching: bool.isRequired,
     };
 
     constructor () {
@@ -49,7 +49,7 @@ export default class Profile extends Component {
         const disabled = profileFetching || avatarFetching;
 
         const buttonStyle = cx(Styles.loginSubmit, {
-            [Styles.disabledButton]: disabled
+            [Styles.disabledButton]: disabled,
         });
 
         return profileEditing || disabled ? (
@@ -70,7 +70,7 @@ export default class Profile extends Component {
     _editProfile (event) {
         const {
             actions: { startProfileEditing, stopProfileEditing },
-            profileEditing
+            profileEditing,
         } = this.props;
 
         event.preventDefault();
@@ -81,7 +81,7 @@ export default class Profile extends Component {
     _handleSubmit (user) {
         const {
             actions: { startProfileEditing, stopProfileEditing, updateProfile },
-            profileEditing
+            profileEditing,
         } = this.props;
 
         if (profileEditing) {
@@ -98,13 +98,13 @@ export default class Profile extends Component {
         const {
             profile: { firstName, avatar },
             profileFetching,
-            profileEditing
+            profileEditing,
         } = this.props;
 
         const disabled = profileFetching || !profileEditing;
 
         const disabledInputStyle = cx({
-            [Styles.disabledInput]: disabled
+            [Styles.disabledInput]: disabled,
         });
 
         const cancelUpdateButton = this.getCancelUpdateButton();
@@ -123,7 +123,7 @@ export default class Profile extends Component {
                 />
                 <Errors
                     messages = { {
-                        valid: 'A first name should be at least 1 symbol long'
+                        valid: 'A first name should be at least 1 symbol long',
                     } }
                     model = 'forms.user.profile.firstName'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -133,7 +133,7 @@ export default class Profile extends Component {
                     disabled = { disabled }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (name) => validateLength(name, 1)
+                        valid: (name) => validateLength(name, 1),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.user.profile.firstName'
@@ -142,7 +142,7 @@ export default class Profile extends Component {
                 />
                 <Errors
                     messages = { {
-                        valid: 'A last name should be at least 1 symbol long'
+                        valid: 'A last name should be at least 1 symbol long',
                     } }
                     model = 'forms.user.profile.lastName'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -152,7 +152,7 @@ export default class Profile extends Component {
                     disabled = { disabled }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (lastName) => validateLength(lastName, 1)
+                        valid: (lastName) => validateLength(lastName, 1),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.user.profile.lastName'

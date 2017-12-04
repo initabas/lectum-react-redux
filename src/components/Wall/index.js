@@ -1,12 +1,7 @@
 // Core
 import React, { Component } from 'react';
 import { object, array } from 'prop-types';
-import {
-    Transition,
-    CSSTransition,
-    TransitionGroup
-} from 'react-transition-group';
-import { fromTo } from 'gsap';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 // Instruments
 import Styles from './styles';
@@ -16,21 +11,15 @@ import Composer from 'components/Composer';
 import Catcher from 'components/Catcher';
 import Post from 'components/Post';
 import Counter from 'components/Counter';
-import Postman from 'components/Postman';
+import Notifications from 'components/Notifications';
 
 export default class Wall extends Component {
     static propTypes = {
-        actions: object.isRequired,
-        posts:   array.isRequired,
-        profile: object.isRequired
+        actions:       object.isRequired,
+        notifications: array.isRequired,
+        posts:         array.isRequired,
+        profile:       object.isRequired,
     };
-
-    constructor () {
-        super();
-
-        this.handlePostmanAppear = ::this._handlePostmanAppear;
-        this.handlePostmanDisappear = ::this._handlePostmanDisappear;
-    }
 
     componentDidMount () {
         this.props.actions.fetchPosts();
@@ -42,14 +31,6 @@ export default class Wall extends Component {
         clearInterval(this.refetch);
     }
 
-    _handlePostmanAppear (postman) {
-        fromTo(postman, 2, { x: 500, opacity: 0 }, { x: 0, opacity: 1 });
-    }
-
-    _handlePostmanDisappear (postman) {
-        fromTo(postman, 2, { x: 0, opacity: 1 }, { x: 500, opacity: 0 });
-    }
-
     render () {
         const {
             actions,
@@ -57,8 +38,9 @@ export default class Wall extends Component {
             profile: {
                 id: userId,
                 firstName: userFirstName,
-                lastName: userLastName
-            }
+                lastName: userLastName,
+            },
+            notifications,
         } = this.props;
 
         const posts = postsData.map((props) => (
@@ -67,7 +49,7 @@ export default class Wall extends Component {
                     enter:       Styles.postInStart,
                     enterActive: Styles.postInEnd,
                     exit:        Styles.postOutStart,
-                    exitActive:  Styles.postOutEnd
+                    exitActive:  Styles.postOutEnd,
                 } }
                 key = { props.id }
                 timeout = { { enter: 700, exit: 600 } }>
@@ -75,6 +57,7 @@ export default class Wall extends Component {
                     <Post
                         { ...props }
                         deletePost = { actions.deletePost }
+                        dislikePost = { actions.dislikePost }
                         likePost = { actions.likePost }
                         userFirstName = { userFirstName }
                         userId = { userId }
@@ -92,14 +75,10 @@ export default class Wall extends Component {
                 />
                 <Counter count = { posts.length } />
                 <TransitionGroup>{posts}</TransitionGroup>
-                <Transition
-                    appear
-                    in
-                    timeout = { 3000 }
-                    onEnter = { this.handlePostmanAppear }
-                    onEntered = { this.handlePostmanDisappear }>
-                    <Postman profile = { this.props.profile } />
-                </Transition>
+                <Notifications
+                    dissolve = { actions.dissolve }
+                    notifications = { notifications }
+                />
             </section>
         );
     }

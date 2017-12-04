@@ -8,20 +8,20 @@ const Input = (props) => (
         { ...props }
         mapProps = { {
             className: ({
-                fieldValue: { submitFailed, touched, errors: { valid }}
+                fieldValue: { submitFailed, touched, errors: { valid }},
             }) =>
                 !valid
                     ? props.disabledstyle
                     : submitFailed || touched && valid
                         ? props.errorstyle
-                        : props.disabledstyle
+                        : props.disabledstyle,
         } }
     />
 );
 
 Input.propTypes = {
     disabledstyle: string.isRequired,
-    errorstyle:    string.isRequired
+    errorstyle:    string.isRequired,
 };
 
 export default Input;

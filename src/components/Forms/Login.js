@@ -1,7 +1,7 @@
 // Core
 import React, { Component } from 'react';
 import { func, bool } from 'prop-types';
-import { Form, Errors } from 'react-redux-form';
+import { Form, Errors, Control } from 'react-redux-form';
 import cx from 'classnames';
 
 // Instruments
@@ -14,7 +14,7 @@ import Input from 'components/Input';
 export default class LoginForm extends Component {
     static propTypes = {
         authFetching: bool.isRequired,
-        login:        func.isRequired
+        login:        func.isRequired,
     };
 
     constructor () {
@@ -31,11 +31,11 @@ export default class LoginForm extends Component {
         const { authFetching } = this.props;
 
         const disabledInputStyle = cx({
-            [Styles.disabledInput]: authFetching
+            [Styles.disabledInput]: authFetching,
         });
 
         const buttonStyle = cx(Styles.loginSubmit, {
-            [Styles.disabledButton]: authFetching
+            [Styles.disabledButton]: authFetching,
         });
 
         return (
@@ -45,7 +45,7 @@ export default class LoginForm extends Component {
                 onSubmit = { this.handleSubmit }>
                 <Errors
                     messages = { {
-                        valid: 'An email should a have a valid shape'
+                        valid: 'An email should a have a valid shape',
                     } }
                     model = 'forms.login.email'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -55,7 +55,7 @@ export default class LoginForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (email) => !validateEmail(email)
+                        valid: (email) => !validateEmail(email),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.login.email'
@@ -65,7 +65,7 @@ export default class LoginForm extends Component {
                 <Errors
                     messages = { {
                         valid: () =>
-                            `A password should be at least 5 symbols long`
+                            `A password should be at least 5 symbols long`,
                     } }
                     model = 'forms.login.password'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -75,7 +75,7 @@ export default class LoginForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (password) => validateLength(password, 5)
+                        valid: (password) => validateLength(password, 5),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.login.password'
@@ -83,6 +83,14 @@ export default class LoginForm extends Component {
                     placeholder = 'Password'
                     type = 'password'
                 />
+                <label>
+                    <Control.checkbox
+                        id = 'forms.login.remember'
+                        model = 'forms.login.remember'
+                        type = 'checkbox'
+                    />
+                    Remember me?
+                </label>
                 <button
                     className = { buttonStyle }
                     disabled = { authFetching }

@@ -10,11 +10,11 @@ const Counter = ({ count }) => (
 );
 
 Counter.propTypes = {
-    count: number.isRequired
+    count: number.isRequired,
 };
 
 Counter.defaultProps = {
-    count: 0
+    count: 0,
 };
 
 export default Counter;

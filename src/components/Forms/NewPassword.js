@@ -17,7 +17,7 @@ export default class Profile extends Component {
     static propTypes = {
         actions:         object.isRequired,
         passwordEditing: bool.isRequired,
-        profileFetching: bool.isRequired
+        profileFetching: bool.isRequired,
     };
 
     constructor () {
@@ -45,7 +45,7 @@ export default class Profile extends Component {
         const { profileFetching, passwordEditing } = this.props;
 
         const buttonStyle = cx(Styles.loginSubmit, {
-            [Styles.disabledButton]: profileFetching
+            [Styles.disabledButton]: profileFetching,
         });
 
         return passwordEditing ? (
@@ -69,7 +69,7 @@ export default class Profile extends Component {
     _changePassword (event) {
         const {
             actions: { startPasswordEditing, stopPasswordEditing },
-            passwordEditing
+            passwordEditing,
         } = this.props;
 
         event.preventDefault();
@@ -82,9 +82,9 @@ export default class Profile extends Component {
             actions: {
                 startPasswordEditing,
                 stopPasswordEditing,
-                updateProfile
+                updateProfile,
             },
-            passwordEditing
+            passwordEditing,
         } = this.props;
 
         if (passwordEditing) {
@@ -103,7 +103,7 @@ export default class Profile extends Component {
         const disabled = profileFetching || !passwordEditing;
 
         const disabledInputStyle = cx({
-            [Styles.disabledInput]: disabled
+            [Styles.disabledInput]: disabled,
         });
 
         const submitButton = this.getSubmitButton();
@@ -118,7 +118,7 @@ export default class Profile extends Component {
                 <Errors
                     messages = { {
                         valid: () =>
-                            `A password should be at least 5 symbols long`
+                            `A password should be at least 5 symbols long`,
                     } }
                     model = 'forms.user.password.oldPassword'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -128,7 +128,7 @@ export default class Profile extends Component {
                     disabled = { disabled }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (password) => validateLength(password, 5)
+                        valid: (password) => validateLength(password, 5),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.user.password.oldPassword'
@@ -139,7 +139,7 @@ export default class Profile extends Component {
                 <Errors
                     messages = { {
                         valid: () =>
-                            `A password should be at least 5 symbols long`
+                            `A password should be at least 5 symbols long`,
                     } }
                     model = 'forms.user.password.newPassword'
                     show = { ({ submitFailed, touched, errors }) =>
@@ -149,7 +149,7 @@ export default class Profile extends Component {
                     disabled = { disabled }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (password) => validateLength(password, 5)
+                        valid: (password) => validateLength(password, 5),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.user.password.newPassword'

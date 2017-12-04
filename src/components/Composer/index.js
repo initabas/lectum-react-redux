@@ -8,7 +8,7 @@ import Styles from './styles.scss';
 export default class Composer extends Component {
     static propTypes = {
         createPost: func.isRequired,
-        profile:    object.isRequired
+        profile:    object.isRequired,
     };
 
     constructor () {
@@ -21,7 +21,7 @@ export default class Composer extends Component {
     }
 
     state = {
-        comment: ''
+        comment: '',
     };
 
     _handleSubmit (event) {
@@ -39,7 +39,7 @@ export default class Composer extends Component {
         this.props.createPost(comment);
 
         this.setState(() => ({
-            comment: ''
+            comment: '',
         }));
     }
 

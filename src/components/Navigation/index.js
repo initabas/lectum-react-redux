@@ -16,7 +16,7 @@ class Navigation extends Component {
     static propTypes = {
         authenticated: bool.isRequired,
         logout:        func.isRequired,
-        profile:       object.isRequired
+        profile:       object.isRequired,
     };
 
     constructor () {
@@ -77,11 +77,11 @@ class Navigation extends Component {
 
 const mapStateToProps = ({ auth, profile }) => ({
     authenticated: getAuthenticated(auth),
-    profile:       getProfile(profile)
+    profile:       getProfile(profile),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    logout: bindActionCreators(authActions.logout, dispatch)
+    logout: bindActionCreators(authActions.logout, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

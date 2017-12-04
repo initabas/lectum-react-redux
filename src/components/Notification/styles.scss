@@ -1,0 +1,25 @@
+@import '../../theme/palette';
+
+.notification {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 250px;
+    padding: 10px;
+    border: 1px solid $paletteColor30;
+    border-radius: 10px;
+    background-color: $paletteColor25;
+    color: $paletteColor11;
+    text-align: center;
+
+    h6 {
+        margin: 0;
+        font-size: 26px;
+    }
+
+    span {
+        display: block;
+        top: 10px;
+        padding-top: 5px;
+    }
+}

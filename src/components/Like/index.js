@@ -7,18 +7,19 @@ import Styles from './styles.scss';
 
 export default class Like extends Component {
     static propTypes = {
-        id:       string.isRequired,
-        likePost: func.isRequired,
-        likes:    arrayOf(
+        dislikePost: func.isRequired,
+        id:          string.isRequired,
+        likePost:    func.isRequired,
+        likes:       arrayOf(
             shape({
                 id:        string.isRequired,
                 firstName: string.isRequired,
-                lastName:  string.isRequired
+                lastName:  string.isRequired,
             }).isRequired
         ).isRequired,
         userFirstName: string.isRequired,
         userId:        string.isRequired,
-        userLastName:  string.isRequired
+        userLastName:  string.isRequired,
     };
 
     constructor () {
@@ -33,24 +34,24 @@ export default class Like extends Component {
     }
 
     state = {
-        showLikers: false
+        showLikers: false,
     };
 
     _likePost () {
-        const { likePost, id } = this.props;
+        const { likePost, dislikePost, id } = this.props;
 
-        likePost(id);
+        this.getLikedByMe() ? dislikePost(id) : likePost(id);
     }
 
     _showLikers () {
         this.setState(() => ({
-            showLikers: true
+            showLikers: true,
         }));
     }
 
     _hideLikers () {
         this.setState(() => ({
-            showLikers: false
+            showLikers: false,
         }));
     }
 
