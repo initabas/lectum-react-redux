@@ -53,7 +53,7 @@ export default class Notification extends Component {
             <Transition
                 appear
                 in
-                timeout = { 50000 }
+                timeout = { 5000 }
                 onEnter = { this.handlePostmanAppear }
                 onEntered = { this.handlePostmanDisappear }>
                 <section className = { Styles.notification }>
