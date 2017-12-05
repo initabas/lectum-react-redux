@@ -11,7 +11,6 @@ import Composer from 'components/Composer';
 import Catcher from 'components/Catcher';
 import Post from 'components/Post';
 import Counter from 'components/Counter';
-import Notifications from 'components/Notifications';
 
 export default class Wall extends Component {
     static propTypes = {
@@ -40,7 +39,6 @@ export default class Wall extends Component {
                 firstName: userFirstName,
                 lastName: userLastName,
             },
-            notifications,
         } = this.props;
 
         const posts = postsData.map((props) => (
@@ -75,10 +73,6 @@ export default class Wall extends Component {
                 />
                 <Counter count = { posts.length } />
                 <TransitionGroup>{posts}</TransitionGroup>
-                <Notifications
-                    dissolve = { actions.dissolve }
-                    notifications = { notifications }
-                />
             </section>
         );
     }
