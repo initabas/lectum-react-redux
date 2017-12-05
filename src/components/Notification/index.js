@@ -21,6 +21,12 @@ export default class Notification extends Component {
         this.handlePostmanDisappear = ::this._handlePostmanDisappear;
     }
 
+    componentWillUnmount () {
+        const { dissolve, id } = this.props;
+
+        dissolve(id);
+    }
+
     _handlePostmanAppear (postman) {
         fromTo(postman, 1, { x: 500, opacity: 0 }, { x: 0, opacity: 1 });
     }

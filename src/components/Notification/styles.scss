@@ -4,13 +4,15 @@
     position: fixed;
     right: 30px;
     bottom: 30px;
-    width: 250px;
+    width: 350px;
     padding: 10px;
+    transition: box-shadow .3s ease-out;
     border: 1px solid $paletteColor30;
     border-radius: 10px;
     background-color: $paletteColor25;
     color: $paletteColor11;
     text-align: center;
+    cursor: pointer;
 
     h6 {
         margin: 0;
@@ -21,5 +23,9 @@
         display: block;
         top: 10px;
         padding-top: 5px;
+    }
+
+    &:hover {
+        box-shadow: 0 1px 1px 1px $paletteColor25;
     }
 }
