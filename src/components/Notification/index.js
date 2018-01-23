@@ -17,18 +17,34 @@ export default class Notification extends Component {
     constructor () {
         super();
 
-        this.handlePostmanAppear = ::this._handlePostmanAppear;
-        this.handlePostmanDisappear = ::this._handlePostmanDisappear;
+        this.handlePostmanAppear = this._handlePostmanAppear.bind(this);
+        this.handlePostmanDisappear = this._handlePostmanDisappear.bind(this);
+        this.hideNotification = this._hideNotification.bind(this);
     }
 
-    componentWillUnmount () {
-        const { dissolve, id } = this.props;
+    state = {
+        notificationIn: true,
+    };
 
-        dissolve(id);
+    _hideNotification () {
+        this.setState({
+            notificationIn: false,
+        });
     }
 
     _handlePostmanAppear (postman) {
-        fromTo(postman, 1, { x: 500, opacity: 0 }, { x: 0, opacity: 1 });
+        fromTo(
+            postman,
+            1,
+            { x: 500, opacity: 0 },
+            {
+                x:          0,
+                opacity:    1,
+                onComplete: () => {
+                    setTimeout(this.hideNotification, 2000);
+                },
+            },
+        );
     }
 
     _handlePostmanDisappear (postman) {
@@ -41,21 +57,25 @@ export default class Notification extends Component {
             {
                 x:          500,
                 opacity:    0,
-                onComplete: () => dissolve(id),
-            }
+                onComplete: () => {
+                    dissolve(id);
+                },
+            },
         );
     }
 
     render () {
         const { error } = this.props;
+        const { notificationIn } = this.state;
 
         return (
             <Transition
                 appear
-                in
+                in = { notificationIn }
                 timeout = { 5000 }
+                onClick = { this.hideNotification }
                 onEnter = { this.handlePostmanAppear }
-                onEntered = { this.handlePostmanDisappear }>
+                onExit = { this.handlePostmanDisappear }>
                 <section className = { Styles.notification }>
                     <h6>Error!</h6>
                     <span>{error.message}</span>
