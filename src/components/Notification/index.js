@@ -17,8 +17,8 @@ export default class Notification extends Component {
     constructor () {
         super();
 
-        this.handlePostmanAppear = this._handlePostmanAppear.bind(this);
-        this.handlePostmanDisappear = this._handlePostmanDisappear.bind(this);
+        this.handleNotificationAppear = this._handleNotificationAppear.bind(this);
+        this.handleNotificationDisappear = this._handleNotificationDisappear.bind(this);
         this.hideNotification = this._hideNotification.bind(this);
     }
 
@@ -32,7 +32,7 @@ export default class Notification extends Component {
         });
     }
 
-    _handlePostmanAppear (postman) {
+    _handleNotificationAppear (postman) {
         fromTo(
             postman,
             1,
@@ -47,7 +47,7 @@ export default class Notification extends Component {
         );
     }
 
-    _handlePostmanDisappear (postman) {
+    _handleNotificationDisappear (postman) {
         const { dissolve, id } = this.props;
 
         fromTo(
@@ -74,8 +74,8 @@ export default class Notification extends Component {
                 in = { notificationIn }
                 timeout = { 5000 }
                 onClick = { this.hideNotification }
-                onEnter = { this.handlePostmanAppear }
-                onExit = { this.handlePostmanDisappear }>
+                onEnter = { this.handleNotificationAppear }
+                onExit = { this.handleNotificationDisappear }>
                 <section className = { Styles.notification }>
                     <h6>Error!</h6>
                     <span>{error.message}</span>

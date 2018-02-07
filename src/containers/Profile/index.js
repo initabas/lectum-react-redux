@@ -1,5 +1,5 @@
 // Core
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 // Components
 import Notifications from 'components/Notifications';
@@ -10,13 +10,15 @@ import ProfileForm from 'components/Forms/Profile';
 
 export default class Profile extends Component {
     render () {
-        return [
-            <Notifications key = '0' />,
-            <Spinner key = '1' />,
-            <Navigation key = '2' />,
-            <Catcher key = '3'>
-                <ProfileForm />
-            </Catcher>
-        ];
+        return (
+            <Fragment>
+                <Notifications />
+                <Spinner />
+                <Navigation />
+                <Catcher>
+                    <ProfileForm />
+                </Catcher>
+            </Fragment>
+        );
     }
 }
