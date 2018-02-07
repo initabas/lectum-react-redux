@@ -1,5 +1,7 @@
+// Core
 import React, { Component } from 'react';
 
+// Instruments
 import Styles from './styles';
 
 export default class Loading extends Component {
