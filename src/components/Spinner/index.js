@@ -15,4 +15,8 @@ Spinner.propTypes = {
     spin: bool.isRequired,
 };
 
+Spinner.defaultProps = {
+    spin: false,
+};
+
 export default Spinner;

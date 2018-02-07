@@ -14,10 +14,18 @@ import Counter from 'components/Counter';
 
 export default class Wall extends Component {
     static propTypes = {
-        actions:       object.isRequired,
-        notifications: array.isRequired,
-        posts:         array.isRequired,
-        profile:       object.isRequired,
+        actions: object.isRequired,
+        posts:   array.isRequired,
+        profile: object.isRequired,
+    };
+
+    static defaultProps = {
+        posts:   [],
+        profile: {},
+        actions: {
+            fetchPosts: () => {},
+            createPost: () => {},
+        },
     };
 
     componentDidMount () {
@@ -34,11 +42,7 @@ export default class Wall extends Component {
         const {
             actions,
             posts: postsData,
-            profile: {
-                id: userId,
-                firstName: userFirstName,
-                lastName: userLastName,
-            },
+            profile: { id: userId, firstName: userFirstName, lastName: userLastName },
         } = this.props;
 
         const posts = postsData.map((props) => (
@@ -67,10 +71,7 @@ export default class Wall extends Component {
 
         return (
             <section className = { Styles.wall }>
-                <Composer
-                    createPost = { actions.createPost }
-                    profile = { this.props.profile }
-                />
+                <Composer createPost = { actions.createPost } profile = { this.props.profile } />
                 <Counter count = { posts.length } />
                 <TransitionGroup>{posts}</TransitionGroup>
             </section>
