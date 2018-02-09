@@ -6,6 +6,6 @@ import { render } from 'react-dom';
 import './theme/reset.css';
 
 // Flux
-import Book from './flux-flow';
+import Book from './intro/flux-flow';
 
 render(<Book />, document.getElementById('root'));
