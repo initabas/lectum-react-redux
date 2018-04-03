@@ -12,8 +12,12 @@ parserOptions:
 plugins:
   - react
 
+globals:
+    __: false
+
 env:
   browser: true
+  node: true
   jest: true
   es6: true
 
@@ -108,7 +112,7 @@ rules:
   no-useless-concat: 1
   no-useless-escape: 1
   no-useless-return: 1
-  no-void: 1
+  no-void: 0
   no-warning-comments: 0
   no-with: 1
   radix: 1
@@ -182,7 +186,6 @@ rules:
   object-property-newline: [1, { "allowMultiplePropertiesPerLine": true }]
   one-var: [1, "never"]
   operator-assignment: 1
-  quotes: [1, "single", { "allowTemplateLiterals": true }]
   semi-spacing: 1
   semi: 1
   space-before-blocks: 1
@@ -191,7 +194,6 @@ rules:
   space-unary-ops: 1
   spaced-comment: [0, "always"]
   wrap-regex: 1
-  arrow-body-style: [1, "as-needed", { "requireReturnForObjectLiteral": false }]
   arrow-parens: [1, "always"]
   arrow-spacing: 1
   constructor-super: 1

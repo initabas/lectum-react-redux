@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import { object, func, string } from 'prop-types';
 import { Transition } from 'react-transition-group';
 import { fromTo } from 'gsap';
 
@@ -8,61 +7,45 @@ import { fromTo } from 'gsap';
 import Styles from './styles';
 
 export default class Notification extends Component {
-    static propTypes = {
-        dissolve: func.isRequired,
-        error:    object.isRequired,
-        id:       string.isRequired,
-    };
-
-    constructor () {
-        super();
-
-        this.handleNotificationAppear = this._handleNotificationAppear.bind(this);
-        this.handleNotificationDisappear = this._handleNotificationDisappear.bind(this);
-        this.hideNotification = this._hideNotification.bind(this);
-    }
-
     state = {
         notificationIn: true,
     };
 
-    _hideNotification () {
+    _hideNotification = () => {
         this.setState({
             notificationIn: false,
         });
-    }
+    };
 
-    _handleNotificationAppear (postman) {
+    _handleNotificationAppear = (postman) => {
         fromTo(
             postman,
-            1,
-            { x: 500, opacity: 0 },
+            0.5,
+            { opacity: 0 },
             {
-                x:          0,
                 opacity:    1,
                 onComplete: () => {
-                    setTimeout(this.hideNotification, 2000);
+                    setTimeout(this._hideNotification, 5000);
                 },
-            },
+            }
         );
-    }
+    };
 
-    _handleNotificationDisappear (postman) {
+    _handleNotificationDisappear = (postman) => {
         const { dissolve, id } = this.props;
 
         fromTo(
             postman,
-            2,
-            { x: 0, opacity: 1 },
+            0.5,
+            { opacity: 1 },
             {
-                x:          500,
                 opacity:    0,
                 onComplete: () => {
                     dissolve(id);
                 },
-            },
+            }
         );
-    }
+    };
 
     render () {
         const { error } = this.props;
@@ -73,12 +56,15 @@ export default class Notification extends Component {
                 appear
                 in = { notificationIn }
                 timeout = { 5000 }
-                onClick = { this.hideNotification }
-                onEnter = { this.handleNotificationAppear }
-                onExit = { this.handleNotificationDisappear }>
+                onClick = { this._hideNotification }
+                onEnter = { this._handleNotificationAppear }
+                onExit = { this._handleNotificationDisappear }>
                 <section className = { Styles.notification }>
                     <h6>Error!</h6>
-                    <span>{error.message}</span>
+                    <span>
+                        <span>Message:</span>
+                        <span>{error.message}</span>
+                    </span>
                 </section>
             </Transition>
         );

@@ -4,16 +4,20 @@
     position: fixed;
     right: 30px;
     bottom: 30px;
-    width: 350px;
+    min-width: 350px;
+    max-width: 600px;
+    min-height: max-content;
     padding: 10px;
     transition: box-shadow .3s ease-out;
-    border: 1px solid $paletteColor30;
+    border: 1px solid $paletteColor8;
     border-radius: 10px;
     background-color: $paletteColor25;
     color: $paletteColor11;
     text-align: center;
     cursor: pointer;
     user-select: none;
+    word-break: break-all;
+    z-index: 1;
 
     h6 {
         margin: 0;
@@ -27,6 +31,6 @@
     }
 
     &:hover {
-        box-shadow: 0 1px 1px 1px $paletteColor25;
+        box-shadow: 0 0 1px 1px $paletteColor25;
     }
 }

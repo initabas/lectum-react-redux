@@ -1,111 +1,85 @@
 // Core
 import React, { Component } from 'react';
-import { string, func, arrayOf, shape } from 'prop-types';
 
 // Instruments
 import Styles from './styles.scss';
 
 export default class Like extends Component {
-    static propTypes = {
-        dislikePost: func.isRequired,
-        id:          string.isRequired,
-        likePost:    func.isRequired,
-        likes:       arrayOf(
-            shape({
-                id:        string.isRequired,
-                firstName: string.isRequired,
-                lastName:  string.isRequired,
-            }).isRequired
-        ).isRequired,
-        userFirstName: string.isRequired,
-        userId:        string.isRequired,
-        userLastName:  string.isRequired,
-    };
-
-    constructor () {
-        super();
-
-        this.likePost = ::this._likePost;
-        this.showLikers = ::this._showLikers;
-        this.hideLikers = ::this._hideLikers;
-        this.getLikedByMe = ::this._getLikedByMe;
-        this.getLikersList = ::this._getLikersList;
-        this.getTotalLikes = ::this._getTotalLikes;
-    }
-
     state = {
         showLikers: false,
     };
 
-    _likePost () {
+    _likePost = () => {
         const { likePost, dislikePost, id } = this.props;
 
-        this.getLikedByMe() ? dislikePost(id) : likePost(id);
-    }
+        this._getLikedByMe() ? dislikePost(id) : likePost(id);
+    };
 
-    _showLikers () {
+    _showLikers = () => {
         this.setState(() => ({
             showLikers: true,
         }));
-    }
+    };
 
-    _hideLikers () {
+    _hideLikers = () => {
         this.setState(() => ({
             showLikers: false,
         }));
-    }
+    };
 
-    _getLikedByMe () {
-        const { userId, likes } = this.props;
+    _getLikedByMe = () => {
+        const { profile, likes } = this.props;
 
-        return likes.some(({ id }) => id === userId);
-    }
+        return likes.some((like) => like.get('id') === profile.get('id'));
+    };
 
-    _getLikersList () {
+    _getLikersList = () => {
         const { likes } = this.props;
         const { showLikers } = this.state;
 
-        return likes.length && showLikers ? (
+        return likes.size && showLikers ? (
             <ul>
-                {likes.map(({ firstName, lastName, id }) => (
-                    <li key = { id }>{`${firstName} ${lastName}`}</li>
+                {likes.map((like) => (
+                    <li key = { like.get('id') }>{`${like.get(
+                        'firstName'
+                    )} ${like.get('lastName')}`}</li>
                 ))}
             </ul>
         ) : null;
-    }
+    };
 
-    _getTotalLikes () {
-        const { likes, userFirstName, userLastName } = this.props;
+    _getTotalLikes = () => {
+        const { likes, profile } = this.props;
 
-        const likedByMe = this.getLikedByMe();
+        const likedByMe = this._getLikedByMe();
 
-        return likes.length === 1 && likedByMe
-            ? `${userFirstName} ${userLastName}`
-            : likes.length === 2 && likedByMe
-                ? `You and ${likes.length - 1} other`
-                : likedByMe ? `You and ${likes.length - 1} others` : likes.length;
-    }
+        return likes.size === 1 && likedByMe
+            ? `${profile.get('firstName')} ${profile.get('lastName')}`
+            : likes.size === 2 && likedByMe
+                ? `You and ${likes.size - 1} other`
+                : likedByMe ? `You and ${likes.size - 1} others` : likes.size;
+    };
 
     render () {
-        const likedByMe = this.getLikedByMe();
+        const likedByMe = this._getLikedByMe();
 
         const likeStyles = likedByMe
             ? `${Styles.icon} ${Styles.liked}`
             : `${Styles.icon}`;
 
-        const likersList = this.getLikersList();
-        const totalLikes = this.getTotalLikes();
+        const likersList = this._getLikersList();
+        const totalLikes = this._getTotalLikes();
 
         return (
             <section className = { Styles.like }>
-                <span className = { likeStyles } onClick = { this.likePost }>
+                <span className = { likeStyles } onClick = { this._likePost }>
                     Like
                 </span>
                 <div>
                     {likersList}
                     <span
-                        onMouseEnter = { this.showLikers }
-                        onMouseLeave = { this.hideLikers }>
+                        onMouseEnter = { this._showLikers }
+                        onMouseLeave = { this._hideLikers }>
                         {totalLikes}
                     </span>
                 </div>

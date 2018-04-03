@@ -1,35 +1,20 @@
 // Core
 import React, { Component } from 'react';
-import { func, object } from 'prop-types';
 
 // Instruments
 import Styles from './styles.scss';
 
 export default class Composer extends Component {
-    static propTypes = {
-        createPost: func.isRequired,
-        profile:    object.isRequired,
-    };
-
-    constructor () {
-        super();
-
-        this.handleSubmit = ::this._handleSubmit;
-        this.handleTextareaChange = ::this._handleTextareaChange;
-        this.handleTextareaKeyPress = ::this._handleTextareaKeyPress;
-        this.createPost = ::this._createPost;
-    }
-
     state = {
         comment: '',
     };
 
-    _handleSubmit (event) {
+    _handleSubmit = (event) => {
         event.preventDefault();
         this._createPost();
-    }
+    };
 
-    _createPost () {
+    _createPost = () => {
         const { comment } = this.state;
 
         if (!comment) {
@@ -41,34 +26,36 @@ export default class Composer extends Component {
         this.setState(() => ({
             comment: '',
         }));
-    }
+    };
 
-    _handleTextareaChange (event) {
+    _handleTextareaChange = (event) => {
         const { value: comment } = event.target;
 
         this.setState(() => ({ comment }));
-    }
+    };
 
-    _handleTextareaKeyPress (event) {
+    _handleTextareaKeyPress = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            this.createPost();
+            this._createPost();
         }
-    }
+    };
 
     render () {
-        const { profile: { avatar, firstName }} = this.props;
+        const { profile } = this.props;
         const { comment } = this.state;
 
         return (
             <section className = { Styles.composer }>
-                <img src = { avatar } />
-                <form onSubmit = { this.handleSubmit }>
+                <img src = { profile.get('avatar') } />
+                <form onSubmit = { this._handleSubmit }>
                     <textarea
-                        placeholder = { `What's on your mind, ${firstName}?` }
+                        placeholder = { `What's on your mind, ${profile.get(
+                            'firstName'
+                        )}?` }
                         value = { comment }
-                        onChange = { this.handleTextareaChange }
-                        onKeyPress = { this.handleTextareaKeyPress }
+                        onChange = { this._handleTextareaChange }
+                        onKeyPress = { this._handleTextareaKeyPress }
                     />
                     <input type = 'submit' value = 'Post' />
                 </form>

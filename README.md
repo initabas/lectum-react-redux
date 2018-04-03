@@ -1,8 +1,10 @@
-# Lectrum Redux intensive boilerplate
+# Интенсив по Redux
 
-## In order to start a project follow these steps:
+Это отправная точка, с которой мы отправиимся с тобой в увлекательное путишесвите по исследованию бескрайних и захватиывающих просторов экосистемы redux. Так что приготовься, возьми с собой все необходимое, и буть готов к свершениям.
+
+## Для того, чтобы отправиться в путь следуй инструкции:
 
 + `git clone git@github.com:Lectrum/redux-intensive-boilerplate.git`
 + `cd redux-intensive-boilerplate`
-+ `yarn` or `npm i`
-+ `yarn start` or `npm start`
++ `yarn` или `npm i`
++ `yarn start` или `npm start`

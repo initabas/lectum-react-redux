@@ -41,7 +41,7 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // To have this structure working with relative paths, we have to use custom options.
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
     ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split('/').length).join('../') }
+      { publicPath: Array(cssFilename.split('/').length).join('../') }
     : {};
 
 // This is the production configuration.
@@ -49,34 +49,42 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 // The development configuration is different and lives in a separate file.
 module.exports = {
     // Don't attempt to continue if there are any errors.
-    bail:    true,
+    bail: true,
     // We generate sourcemaps in production. This is slow but gives good results.
     // You can exclude the *.map files from the build during deployment.
     devtool: shouldUseSourceMap ? 'source-map' : false,
     // In production, we only want to load the polyfills and the app code.
-    entry:   [require.resolve('./polyfills'), paths.appIndexJs],
-    output:  {
+    entry: [
+        require.resolve('./polyfills'),
+        paths.appIndexJs,
+        require.resolve('@babel/polyfill'),
+    ],
+    output: {
         // The build folder.
-        path:                          paths.appBuild,
+        path: paths.appBuild,
         // Generated JS file names (with nested folders).
         // There will be one main bundle, and one file per asynchronous chunk.
         // We don't currently advertise code splitting but Webpack supports it.
-        filename:                      'static/js/[name].[chunkhash:8].js',
-        chunkFilename:                 'static/js/[name].[chunkhash:8].chunk.js',
+        filename: 'static/js/[name].[chunkhash:8].js',
+        chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
         // We inferred the "public path" (such as / or /my-project) from homepage.
         publicPath,
         // Point sourcemap entries to original disk location (format as URL on Windows)
-        devtoolModuleFilenameTemplate: (info) =>
+        devtoolModuleFilenameTemplate: info =>
             path
                 .relative(paths.appSrc, info.absoluteResourcePath)
-                .replace(/\\/g, '/')
+                .replace(/\\/g, '/'),
     },
     resolve: {
         // This allows you to set a fallback for where Webpack should look for modules.
         // We placed these paths second because we want `node_modules` to "win"
         // if there are any conflicts. This matches Node resolution mechanism.
         // https://github.com/facebookincubator/create-react-app/issues/253
-        modules: ['node_modules', path.resolve(__dirname, "../src"), paths.appNodeModules].concat(
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, '../src'),
+            paths.appNodeModules,
+        ].concat(
             // It is guaranteed to exist because we tweak it in `env.js`
             process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
         ),
@@ -93,12 +101,12 @@ module.exports = {
             '.web.jsx',
             '.jsx',
             '.css',
-            '.scss'
+            '.scss',
         ],
         alias: {
             // Support React Native Web
             // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-            'react-native': 'react-native-web'
+            'react-native': 'react-native-web',
         },
         plugins: [
             // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -106,12 +114,12 @@ module.exports = {
             // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
             // please link the files into your node_modules/ and let module-resolution kick in.
             // Make sure your source files are compiled, as they will not be processed in any way.
-            new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
-        ]
+            new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+        ],
     },
     module: {
         strictExportPresence: true,
-        rules:                [
+        rules: [
             // TODO: Disable require.ensure as it's not a standard language feature.
             // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
             // { parser: { requireEnsure: false } },
@@ -119,19 +127,19 @@ module.exports = {
             // First, run the linter.
             // It's important to do this before Babel processes the JS.
             {
-                test:    /\.(js|jsx)$/,
+                test: /\.(js|jsx)$/,
                 enforce: 'pre',
-                use:     [
+                use: [
                     {
                         options: {
-                            formatter:  eslintFormatter,
+                            formatter: eslintFormatter,
                             eslintPath: require.resolve('eslint'),
-                            useEslintrc: true
+                            useEslintrc: true,
                         },
-                        loader: require.resolve('eslint-loader')
-                    }
+                        loader: require.resolve('eslint-loader'),
+                    },
                 ],
-                include: paths.appSrc
+                include: paths.appSrc,
             },
             {
                 // "oneOf" will traverse all following loaders until one will
@@ -141,21 +149,21 @@ module.exports = {
                     // "url" loader works just like "file" loader but it also embeds
                     // assets smaller than specified size as data URLs to avoid requests.
                     {
-                        test:    [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-                        loader:  require.resolve('url-loader'),
+                        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                        loader: require.resolve('url-loader'),
                         options: {
                             limit: 100000,
-                            name:  'static/media/[name].[hash:8].[ext]'
-                        }
+                            name: 'static/media/[name].[hash:8].[ext]',
+                        },
                     },
                     // Process JS with Babel.
                     {
-                        test:    /\.(js|jsx)$/,
+                        test: /\.(js|jsx)$/,
                         include: paths.appSrc,
-                        loader:  require.resolve('babel-loader'),
+                        loader: require.resolve('babel-loader'),
                         options: {
-                            compact: true
-                        }
+                            compact: true,
+                        },
                     },
                     // The notation here is somewhat confusing.
                     // "postcss" loader applies autoprefixer to our CSS.
@@ -171,20 +179,20 @@ module.exports = {
                     // in the main CSS file.
                     {
                         test: /\.css$/,
-                        use:  [
+                        use: [
                             require.resolve('style-loader'),
                             {
-                                loader:  require.resolve('css-loader'),
+                                loader: require.resolve('css-loader'),
                                 options: {
-                                    importLoaders: 1
-                                }
+                                    importLoaders: 1,
+                                },
                             },
                             {
-                                loader:  require.resolve('postcss-loader'),
+                                loader: require.resolve('postcss-loader'),
                                 options: {
                                     // Necessary for external CSS imports to work
                                     // https://github.com/facebookincubator/create-react-app/issues/2677
-                                    ident:   'postcss',
+                                    ident: 'postcss',
                                     plugins: () => [
                                         require('postcss-flexbugs-fixes'),
                                         autoprefixer({
@@ -192,55 +200,55 @@ module.exports = {
                                                 '>1%',
                                                 'last 4 versions',
                                                 'Firefox ESR',
-                                                'not ie < 9' // React doesn't support IE8 anyway
+                                                'not ie < 9', // React doesn't support IE8 anyway
                                             ],
-                                            flexbox: 'no-2009'
-                                        })
-                                    ]
-                                }
-                            }
-                        ]
+                                            flexbox: 'no-2009',
+                                        }),
+                                    ],
+                                },
+                            },
+                        ],
                     },
                     {
                         test: /\.scss$/,
-                        use:  [
+                        use: [
                             {
-                                loader: 'style-loader'
+                                loader: 'style-loader',
                             },
                             {
-                                loader:  'css-loader',
+                                loader: 'css-loader',
                                 options: {
-                                    modules: 'true'
-                                }
+                                    modules: 'true',
+                                },
                             },
                             {
-                                loader:  'sass-loader',
+                                loader: 'sass-loader',
                                 options: {
-                                    modules: 'true'
-                                }
-                            }
-                        ]
+                                    modules: 'true',
+                                },
+                            },
+                        ],
                     },
                     // "file" loader makes sure assets end up in the `build` folder.
                     // When you `import` an asset, you get its filename.
                     // This loader don't uses a "test" so it will catch all modules
                     // that fall through the other loaders.
                     {
-                        loader:  require.resolve('file-loader'),
+                        loader: require.resolve('file-loader'),
                         // Exclude `js` files to keep "css" loader working as it injects
                         // it's runtime that would otherwise processed through "file" loader.
                         // Also exclude `html` and `json` extensions so they get processed
                         // by webpacks internal loaders.
                         exclude: [/\.js$/, /\.html$/, /\.json$/],
                         options: {
-                            name: 'static/media/[name].[hash:8].[ext]'
-                        }
-                    }
+                            name: 'static/media/[name].[hash:8].[ext]',
+                        },
+                    },
                     // ** STOP ** Are you adding a new loader?
                     // Make sure to add the new loader(s) before the "file" loader.
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     },
     plugins: [
         // Makes some environment variables available in index.html.
@@ -251,20 +259,20 @@ module.exports = {
         new InterpolateHtmlPlugin(env.raw),
         // Generates an `index.html` file with the <script> injected.
         new HtmlWebpackPlugin({
-            inject:   true,
+            inject: true,
             template: paths.appHtml,
-            minify:   {
-                removeComments:                false,
-                collapseWhitespace:            false,
-                removeRedundantAttributes:     false,
-                useShortDoctype:               false,
-                removeEmptyAttributes:         false,
+            minify: {
+                removeComments: false,
+                collapseWhitespace: false,
+                removeRedundantAttributes: false,
+                useShortDoctype: false,
+                removeEmptyAttributes: false,
                 removeStyleLinkTypeAttributes: false,
-                keepClosingSlash:              false,
-                minifyJS:                      false,
-                minifyCSS:                     false,
-                minifyURLs:                    false
-            }
+                keepClosingSlash: false,
+                minifyJS: false,
+                minifyCSS: false,
+                minifyURLs: false,
+            },
         }),
         // Makes some environment variables available to the JS code, for example:
         // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
@@ -274,30 +282,30 @@ module.exports = {
         // Minify the code.
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings:    false,
+                warnings: false,
                 // Disabled because of an issue with Uglify breaking seemingly valid code:
                 // https://github.com/facebookincubator/create-react-app/issues/2376
                 // Pending further investigation:
                 // https://github.com/mishoo/UglifyJS2/issues/2011
-                comparisons: false
+                comparisons: false,
             },
             output: {
-                comments:   false,
+                comments: false,
                 // Turned on because emoji and regex is not minified properly using default
                 // https://github.com/facebookincubator/create-react-app/issues/2488
-                ascii_only: true
+                ascii_only: true,
             },
-            sourceMap: shouldUseSourceMap
+            sourceMap: shouldUseSourceMap,
         }),
         // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
         new ExtractTextPlugin({
-            filename: cssFilename
+            filename: cssFilename,
         }),
         // Generate a manifest file which contains a mapping of all asset filenames
         // to their corresponding output file so that tools can pick it up without
         // having to parse `index.html`.
         new ManifestPlugin({
-            fileName: 'asset-manifest.json'
+            fileName: 'asset-manifest.json',
         }),
         // Generate a service worker script that will precache, and keep up to date,
         // the HTML & assets that are part of the Webpack build.
@@ -307,8 +315,8 @@ module.exports = {
             // If a URL is already hashed by Webpack, then there is no concern
             // about it being stale, and the cache-busting can be skipped.
             dontCacheBustUrlsMatching: /\.\w{8}\./,
-            filename:                  'service-worker.js',
-            logger (message) {
+            filename: 'service-worker.js',
+            logger(message) {
                 if (message.indexOf('Total precache size is') === 0) {
                     // This message occurs for every build and is a bit too noisy.
                     return;
@@ -320,14 +328,14 @@ module.exports = {
                 }
                 console.log(message);
             },
-            minify:                        true,
+            minify: true,
             // For unknown URLs, fallback to the index page
-            navigateFallback:              `${publicUrl}/index.html`,
+            navigateFallback: `${publicUrl}/index.html`,
             // Ignores URLs starting from /__ (useful for Firebase):
             // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
-            navigateFallbackWhitelist:     [/^(?!\/__).*/],
+            navigateFallbackWhitelist: [/^(?!\/__).*/],
             // Don't precache sourcemaps (they're large) and build asset manifest:
-            staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+            staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
         }),
         // Moment.js is an extremely popular library that bundles large locale files
         // by default due to how Webpack interprets its code. This is a practical
@@ -340,8 +348,8 @@ module.exports = {
     // Tell Webpack to provide empty mocks for them so importing them works.
     node: {
         dgram: 'empty',
-        fs:    'empty',
-        net:   'empty',
-        tls:   'empty'
-    }
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+    },
 };

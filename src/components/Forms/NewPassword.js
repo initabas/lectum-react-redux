@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import { object, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Form, Errors } from 'react-redux-form';
 import cx from 'classnames';
@@ -8,40 +7,24 @@ import cx from 'classnames';
 // Instruments
 import Styles from './styles';
 import { validateLength } from 'instruments/validators';
-import pages from 'routes/pages';
 
 // Components
 import Input from 'components/Input';
 
 export default class Profile extends Component {
-    static propTypes = {
-        actions:         object.isRequired,
-        passwordEditing: bool.isRequired,
-        profileFetching: bool.isRequired,
-    };
-
-    constructor () {
-        super();
-
-        this.changePassword = ::this._changePassword;
-        this.getCancelUpdateButton = ::this._getCancelUpdateButton;
-        this.getSubmitButton = ::this._getSubmitButton;
-        this.handleSubmit = ::this._handleSubmit;
-    }
-
-    _getCancelUpdateButton () {
+    _getCancelUpdateButton = () => {
         const { passwordEditing, actions } = this.props;
 
         return passwordEditing ? (
             <span
                 className = { Styles.cancelUpdate }
-                onClick = { () => actions.stopPasswordEditing() }>
+                onClick = { () => actions.setPasswordEditing(false) }>
                 cancel update
             </span>
         ) : null;
-    }
+    };
 
-    _getSubmitButton () {
+    _getSubmitButton = () => {
         const { profileFetching, passwordEditing } = this.props;
 
         const buttonStyle = cx(Styles.loginSubmit, {
@@ -60,45 +43,40 @@ export default class Profile extends Component {
                 className = { buttonStyle }
                 disabled = { profileFetching }
                 type = 'submit'
-                onClick = { this.changePassword }>
+                onClick = { this._changePassword }>
                 Change Password
             </button>
         );
-    }
+    };
 
-    _changePassword (event) {
-        const {
-            actions: { startPasswordEditing, stopPasswordEditing },
-            passwordEditing,
-        } = this.props;
+    _changePassword = (event) => {
+        const { actions: { setPasswordEditing }, passwordEditing } = this.props;
 
         event.preventDefault();
 
-        passwordEditing ? stopPasswordEditing() : startPasswordEditing();
-    }
+        passwordEditing ? setPasswordEditing(false) : setPasswordEditing(true);
+    };
 
-    _handleSubmit (user) {
+    _handleSubmit = (user) => {
         const {
-            actions: {
-                startPasswordEditing,
-                stopPasswordEditing,
-                updateProfile,
-            },
+            actions: { setPasswordEditing, updateProfile },
             passwordEditing,
         } = this.props;
 
         if (passwordEditing) {
             updateProfile(user);
-            stopPasswordEditing();
+            setPasswordEditing(false);
 
             return;
         }
 
-        startPasswordEditing();
-    }
+        setPasswordEditing(true);
+    };
 
     render () {
         const { profileFetching, passwordEditing } = this.props;
+
+        console.log('✓ this.props:', this.props);
 
         const disabled = profileFetching || !passwordEditing;
 
@@ -106,15 +84,15 @@ export default class Profile extends Component {
             [Styles.disabledInput]: disabled,
         });
 
-        const submitButton = this.getSubmitButton();
-        const cancelUpdateButton = this.getCancelUpdateButton();
+        const submitButton = this._getSubmitButton();
+        const cancelUpdateButton = this._getCancelUpdateButton();
 
         return (
             <Form
                 className = { Styles.form }
                 key = '1'
                 model = 'forms.user.password'
-                onSubmit = { this.handleSubmit }>
+                onSubmit = { this._handleSubmit }>
                 <Errors
                     messages = { {
                         valid: () =>
@@ -122,7 +100,8 @@ export default class Profile extends Component {
                     } }
                     model = 'forms.user.password.oldPassword'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { disabled }
@@ -143,7 +122,8 @@ export default class Profile extends Component {
                     } }
                     model = 'forms.user.password.newPassword'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { disabled }
@@ -159,7 +139,7 @@ export default class Profile extends Component {
                 />
                 {submitButton}
                 <i>{cancelUpdateButton}</i>
-                <Link to = { pages.profile }>← back</Link>
+                <Link to = '/profile'>← back</Link>
             </Form>
         );
     }

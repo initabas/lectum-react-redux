@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import { func, bool } from 'prop-types';
 import { Form, Errors, Control } from 'react-redux-form';
 import cx from 'classnames';
 
@@ -12,20 +11,9 @@ import { validateEmail, validateLength } from 'instruments/validators';
 import Input from 'components/Input';
 
 export default class LoginForm extends Component {
-    static propTypes = {
-        authFetching: bool.isRequired,
-        login:        func.isRequired,
+    _handleSubmit = (user) => {
+        this.props.actions.login(user);
     };
-
-    constructor () {
-        super();
-
-        this.handleSubmit = ::this._handleSubmit;
-    }
-
-    _handleSubmit (user) {
-        this.props.login(user);
-    }
 
     render () {
         const { authFetching } = this.props;
@@ -42,14 +30,15 @@ export default class LoginForm extends Component {
             <Form
                 className = { Styles.form }
                 model = 'forms.login'
-                onSubmit = { this.handleSubmit }>
+                onSubmit = { this._handleSubmit }>
                 <Errors
                     messages = { {
                         valid: 'An email should a have a valid shape',
                     } }
                     model = 'forms.login.email'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }
@@ -69,7 +58,8 @@ export default class LoginForm extends Component {
                     } }
                     model = 'forms.login.password'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }

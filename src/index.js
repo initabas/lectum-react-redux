@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 // Instruments
 import './theme/reset.css';
 
-// Flux
-import Book from './intro/flux-flow';
+// Main
+import Book from './flux';
 
 render(<Book />, document.getElementById('root'));

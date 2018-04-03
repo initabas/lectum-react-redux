@@ -1,87 +1,64 @@
 // Coret
 import React, { Component } from 'react';
-import { bool, object, func } from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { NavLink } from 'react-router-dom';
+import cx from 'classnames';
 
 // Instruments
 import Styles from './styles';
-import pages from 'routes/pages';
-import authActions from 'actions/auth';
-import { getAuthenticated } from 'selectors/auth';
-import { getProfile } from 'selectors/profile';
 
-class Navigation extends Component {
-    static propTypes = {
-        authenticated: bool.isRequired,
-        logout:        func.isRequired,
-        profile:       object.isRequired,
+const mapStateToProps = (state) => {
+    return {
+        authenticated: state.auth.get('authenticated'),
+        profile:       state.profile,
+        online:        state.ui.get('online'),
+    };
+};
+
+@connect(mapStateToProps)
+export default class Navigation extends Component {
+    _getNavigation = () => {
+        const { authenticated, profile, online } = this.props;
+
+        const statusStyle = cx(Styles.status, {
+            [Styles.online]:  online,
+            [Styles.offline]: !online,
+        });
+
+        return authenticated ?
+            <>
+                <div className = { statusStyle }>
+                    <div>{online ? 'Online' : 'Offline'}</div>
+                    <span />
+                </div>
+                <NavLink activeClassName = { Styles.active } to = { '/profile' }>
+                    <img src = { profile.get('avatar') } />
+                    {profile.get('firstName')}
+                </NavLink>
+                <NavLink activeClassName = { Styles.active } to = { '/feed' }>
+                    Feed
+                </NavLink>
+                <button onClick = { this._logout }>Log Out</button>
+            </>
+            :
+            <>
+                <NavLink activeClassName = { Styles.active } to = { '/login' }>
+                    Log In
+                </NavLink>
+                <NavLink activeClassName = { Styles.active } to = { '/sign-up' }>
+                    Sign Up
+                </NavLink>
+            </>
+        ;
     };
 
-    constructor () {
-        super();
-
-        this.getNavigation = ::this._getNavigation;
-        this.logout = ::this._logout;
-    }
-
-    _getNavigation () {
-        const { authenticated, profile: { firstName, avatar }} = this.props;
-
-        return authenticated
-            ? [
-                <NavLink
-                    activeClassName = { Styles.active }
-                    key = '0'
-                    to = { pages.profile }>
-                    <img src = { avatar } />
-                    {firstName}
-                </NavLink>,
-                <NavLink
-                    activeClassName = { Styles.active }
-                    key = '1'
-                    to = { pages.feed }>
-                      Feed
-                </NavLink>,
-                <button key = '2' onClick = { this.logout }>
-                      Log Out
-                </button>
-            ]
-            : [
-                <NavLink
-                    activeClassName = { Styles.active }
-                    key = '0'
-                    to = { pages.login }>
-                      Log In
-                </NavLink>,
-                <NavLink
-                    activeClassName = { Styles.active }
-                    key = '1'
-                    to = { pages.signUp }>
-                      Sign Up
-                </NavLink>
-            ];
-    }
-
-    _logout () {
+    _logout = () => {
         this.props.logout();
-    }
+    };
 
     render () {
-        const navigation = this.getNavigation();
+        const navigation = this._getNavigation();
 
         return <section className = { Styles.navigation }>{navigation}</section>;
     }
 }
-
-const mapStateToProps = ({ auth, profile }) => ({
-    authenticated: getAuthenticated(auth),
-    profile:       getProfile(profile),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    logout: bindActionCreators(authActions.logout, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

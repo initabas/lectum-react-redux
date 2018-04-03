@@ -44,9 +44,49 @@
         position: absolute;
         right: 10px;
         outline: 0;
+        border-radius: 5px;
     }
 
     .active {
         background: $rgbaColor1;
+    }
+
+    .status {
+        position: absolute;;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        width: 55px;
+        min-width: max-content;
+        height: 12px;
+        background: $paletteColor3;
+        top: 8px;
+        left: 5px;
+        color: $paletteColor7;
+        border: 1px solid $paletteColor7;
+        border-radius: 5px;
+        font-size: 14px;
+        user-select: none;
+        cursor: pointer;
+
+        & span {
+            width: 5px;
+            height: 5px;
+        }
+    }
+
+    .online {
+        & span {
+            background: $paletteColor17;
+            box-shadow: 0 0 1px 2px $paletteColor17;
+        }
+    }
+
+    .offline {
+        & span {
+            background: $paletteColor25;
+            box-shadow: 0 0 1px 2px $paletteColor25;
+        }
     }
 }

@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import { object, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Form, Errors, Control } from 'react-redux-form';
 import cx from 'classnames';
@@ -8,42 +7,24 @@ import cx from 'classnames';
 // Instruments
 import Styles from './styles';
 import { validateLength } from 'instruments/validators';
-import pages from 'routes/pages';
 
 // Components
 import Input from 'components/Input';
 
 export default class Profile extends Component {
-    static propTypes = {
-        actions:         object.isRequired,
-        avatarFetching:  bool.isRequired,
-        profile:         object.isRequired,
-        profileEditing:  bool.isRequired,
-        profileFetching: bool.isRequired,
-    };
-
-    constructor () {
-        super();
-
-        this.editProfile = ::this._editProfile;
-        this.getCancelUpdateButton = ::this._getCancelUpdateButton;
-        this.getSubmitButton = ::this._getSubmitButton;
-        this.handleSubmit = ::this._handleSubmit;
-    }
-
-    _getCancelUpdateButton () {
+    _getCancelUpdateButton = () => {
         const { profileEditing, actions } = this.props;
 
         return profileEditing ? (
             <span
                 className = { Styles.cancelUpdate }
-                onClick = { () => actions.stopProfileEditing() }>
+                onClick = { () => actions.setProfileEditing(false) }>
                 cancel update
             </span>
         ) : null;
-    }
+    };
 
-    _getSubmitButton () {
+    _getSubmitButton = () => {
         const { profileFetching, avatarFetching, profileEditing } = this.props;
 
         const disabled = profileFetching || avatarFetching;
@@ -61,45 +42,40 @@ export default class Profile extends Component {
                 className = { buttonStyle }
                 disabled = { disabled }
                 type = 'submit'
-                onClick = { this.editProfile }>
+                onClick = { this._editProfile }>
                 Edit Profile
             </button>
         );
-    }
+    };
 
-    _editProfile (event) {
-        const {
-            actions: { startProfileEditing, stopProfileEditing },
-            profileEditing,
-        } = this.props;
-
+    _editProfile = (event) => {
         event.preventDefault();
 
-        profileEditing ? stopProfileEditing() : startProfileEditing();
-    }
+        const { actions: { setProfileEditing }, profileEditing } = this.props;
 
-    _handleSubmit (user) {
+        console.log('✓ this.props:', this.props);
+
+        profileEditing ? setProfileEditing(false) : setProfileEditing(true);
+    };
+
+    _handleSubmit = (user) => {
         const {
-            actions: { startProfileEditing, stopProfileEditing, updateProfile },
+            actions: { setProfileEditing, updateProfile },
             profileEditing,
         } = this.props;
 
         if (profileEditing) {
             updateProfile(user);
-            stopProfileEditing();
+            setProfileEditing(false);
 
             return;
         }
 
-        startProfileEditing();
-    }
+        setProfileEditing(true);
+    };
 
     render () {
-        const {
-            profile: { firstName, avatar },
-            profileFetching,
-            profileEditing,
-        } = this.props;
+        const { profile, profileFetching, profileEditing } = this.props;
 
         const disabled = profileFetching || !profileEditing;
 
@@ -107,16 +83,16 @@ export default class Profile extends Component {
             [Styles.disabledInput]: disabled,
         });
 
-        const cancelUpdateButton = this.getCancelUpdateButton();
-        const submitButton = this.getSubmitButton();
+        const cancelUpdateButton = this._getCancelUpdateButton();
+        const submitButton = this._getSubmitButton();
 
         return (
             <Form
                 className = { Styles.form }
                 model = 'forms.user.profile'
-                onSubmit = { this.handleSubmit }>
-                <h1>Welcome, {firstName}</h1>
-                <img src = { avatar } />
+                onSubmit = { this._handleSubmit }>
+                <h1>Welcome, {profile.get('firstName')}</h1>
+                <img src = { profile.get('avatar') } />
                 <Control.file
                     disabled = { disabled }
                     model = 'forms.user.profile.avatar'
@@ -127,7 +103,8 @@ export default class Profile extends Component {
                     } }
                     model = 'forms.user.profile.firstName'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { disabled }
@@ -146,7 +123,8 @@ export default class Profile extends Component {
                     } }
                     model = 'forms.user.profile.lastName'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { disabled }
@@ -161,7 +139,7 @@ export default class Profile extends Component {
                 />
                 {submitButton}
                 <i>{cancelUpdateButton}</i>
-                <Link to = { pages.newPassword }>change password →</Link>
+                <Link to = '/new-password'>change password →</Link>
             </Form>
         );
     }

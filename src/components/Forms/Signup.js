@@ -1,6 +1,5 @@
 // Core
 import React, { Component } from 'react';
-import { bool, func } from 'prop-types';
 import { Form, Errors } from 'react-redux-form';
 import cx from 'classnames';
 
@@ -12,19 +11,8 @@ import { validateEmail, validateLength } from 'instruments/validators';
 import Input from 'components/Input';
 
 export default class SignupForm extends Component {
-    static propTypes = {
-        authFetching: bool.isRequired,
-        signup:       func.isRequired,
-    };
-
-    constructor () {
-        super();
-
-        this.handleSubmit = ::this._handleSubmit;
-    }
-
-    _handleSubmit (user) {
-        this.props.signup(user);
+    _handleSubmit = (user) => {
+        this.props.actions.signup(user);
     }
 
     render () {
@@ -42,7 +30,7 @@ export default class SignupForm extends Component {
             <Form
                 className = { Styles.form }
                 model = 'forms.signup'
-                onSubmit = { this.handleSubmit }>
+                onSubmit = { this._handleSubmit }>
                 <Errors
                     messages = { {
                         valid:
@@ -50,7 +38,8 @@ export default class SignupForm extends Component {
                     } }
                     model = 'forms.signup.firstName'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }
@@ -71,7 +60,8 @@ export default class SignupForm extends Component {
                     } }
                     model = 'forms.signup.lastName'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }
@@ -91,7 +81,8 @@ export default class SignupForm extends Component {
                     } }
                     model = 'forms.signup.email'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }
@@ -111,7 +102,8 @@ export default class SignupForm extends Component {
                     } }
                     model = 'forms.signup.password'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }
@@ -131,7 +123,8 @@ export default class SignupForm extends Component {
                     } }
                     model = 'forms.signup.invite'
                     show = { ({ submitFailed, touched, errors }) =>
-                        submitFailed || touched && errors.valid }
+                        submitFailed || touched && errors.valid
+                    }
                 />
                 <Input
                     disabled = { authFetching }

@@ -1,15 +1,10 @@
 // Core
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 // Instruments
 import Styles from './styles.scss';
 
 export default class Catcher extends Component {
-    static propTypes = {
-        children: PropTypes.object.isRequired,
-    };
-
     state = {
         error: false,
     };

@@ -41,6 +41,7 @@ module.exports = {
         // the line below with these two lines if you prefer the stock client:
         // require.resolve('webpack-dev-server/client') + '?/',
         // require.resolve('webpack/hot/dev-server'),
+        require.resolve('@babel/polyfill'),
         require.resolve('react-dev-utils/webpackHotDevClient'),
         // We ship a few polyfills by default:
         require.resolve('./polyfills'),
@@ -115,21 +116,6 @@ module.exports = {
 
             // First, run the linter.
             // It's important to do this before Babel processes the JS.
-            {
-                test:    /\.(js|jsx)$/,
-                enforce: 'pre',
-                use:     [
-                    {
-                        options: {
-                            formatter:   eslintFormatter,
-                            eslintPath:  require.resolve('eslint'),
-                            useEslintrc: true
-                        },
-                        loader: require.resolve('eslint-loader')
-                    }
-                ],
-                include: paths.appSrc
-            },
             {
                 // "oneOf" will traverse all following loaders until one will
                 // match the requirements. When no loader matches it will fall

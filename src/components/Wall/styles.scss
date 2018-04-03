@@ -11,25 +11,23 @@
     background-color: $paletteColor3;
 
     .postInStart {
-        transform: scale(.5);
+        transform: scale(.1);
         opacity: .01;
     }
 
     .postInEnd {
         transform: scale(1);
-        transition: opacity 700ms $cubic1,
-            transform 700ms $cubic1;
+        transition: opacity 400ms $cubic1,
+            transform 400ms $cubic1;
         opacity: 1;
     }
 
     .postOutStart {
-        transform: rotate3d(0, 0, 0, 0) translate(0, 0);
         opacity: 1;
     }
 
     .postOutEnd {
-        transform: rotate3d(3, 2, 1, 107deg) translate(1250px, -110px);
-        transition: opacity 600ms $cubic2, transform 600ms $cubic2;
+        transition: opacity 500ms $cubic1;
         opacity: .01;
     }
 }
