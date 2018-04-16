@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
 
+import { book } from 'routes/book';
+import { authActions } from 'bus/auth/actions';
+
 // Instruments
 import Styles from './styles';
 
@@ -15,7 +18,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, { logout: authActions.logout })
 export default class Navigation extends Component {
     _getNavigation = () => {
         const { authenticated, profile, online } = this.props;
@@ -57,8 +60,20 @@ export default class Navigation extends Component {
     };
 
     render () {
+        const { online } = this.props;
         const navigation = this._getNavigation();
+        const statusStyle = cx(Styles.status, {
+            [Styles.online]:  online,
+            [Styles.offline]: !online,
+        });
 
-        return <section className = { Styles.navigation }>{navigation}</section>;
+        return <section className = { Styles.navigation }>
+            <div className = { statusStyle }>
+                <div>{online ? 'Online' : 'Offline'}</div>
+                <span />
+            </div>
+            {navigation}
+
+        </section>;
     }
 }

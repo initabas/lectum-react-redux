@@ -1,0 +1,1 @@
+export { fetchPostsWorker } from './fetchPostsWorker';

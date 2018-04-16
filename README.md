@@ -1,10 +1,8 @@
-# Интенсив по redux
+# Config
 
-Это отправная точка, с которой мы отправимся с тобой в увлекательное путешествие по исследованию бескрайних и захватывающих простор экосистемы redux. Так что приготовься, возьми с собой все необходимое, и буть готов к свершениям.
+## Port set
+/scripts/start.js line 43
+PORT: 8080
 
-## Для того, чтобы отправиться в путь следуй инструкции:
-
-+ `git clone git@github.com:Lectrum/redux-intensive-boilerplate.git`
-+ `cd redux-intensive-boilerplate`
-+ `yarn` или `npm i`
-+ `yarn start` или `npm start`
+## Demo Link
+https://lectrum-redux-initabas.c9users.io
