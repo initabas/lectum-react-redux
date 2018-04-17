@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`posts reducers: should handle CREATE_POST_SUCCESS 1`] = `
+Immutable.List [
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ee_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+]
+`;
+
+exports[`posts reducers: should handle DELETE_POST_SUCCESS 1`] = `
+Immutable.List [
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ee_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ed_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+]
+`;
+
+exports[`posts reducers: should handle DISLIKE_POST_SUCCESS 1`] = `
+Immutable.List [
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ee_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ed_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+]
+`;
+
+exports[`posts reducers: should handle FETCH_POSTS_SUCCESS 1`] = `
+Immutable.List [
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ee_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ed_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+]
+`;
+
+exports[`posts reducers: should handle LIKE_POST_SUCCESS 1`] = `
+Immutable.List [
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ee_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+      Immutable.Map {
+        "firstName": "Walter",
+        "lastName": "White",
+        "id": "123",
+        "avatar": "avatar",
+        "token": "NOT_A_TOKEN",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+  Immutable.Map {
+    "id": "59edd93052db76aefs2b36ed_TEST",
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "likes": Immutable.List [
+      Immutable.Map {
+        "id": "52edd9352db76aeff2b34ed",
+        "firstName": "Harold",
+        "lastName": "Cassin",
+      },
+    ],
+    "author": Immutable.Map {
+      "id": "34edd9c052db76aeff2b33es",
+      "firstName": "Tristian",
+      "lastName": "Farrell",
+      "groupId": "844t1zdqp0",
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+    },
+  },
+]
+`;
+
+exports[`posts reducers: should return initial state 1`] = `Immutable.List []`;

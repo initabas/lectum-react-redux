@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`posts actions createPost should produce a valid action creator 1`] = `
+Object {
+  "payload": "NOT_COMMENT",
+  "type": "CREATE_POST",
+}
+`;
+
+exports[`posts actions createPostFail should produce a valid action creator 1`] = `
+Object {
+  "error": true,
+  "payload": "NOT_AN_ERROR",
+  "type": "CREATE_POST_FAIL",
+}
+`;
+
+exports[`posts actions createPostSuccess should produce a valid action creator 1`] = `
+Object {
+  "payload": Object {
+    "author": Object {
+      "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+      "firstName": "Tristian",
+      "groupId": "844t1zdqp0",
+      "id": "34edd9c052db76aeff2b33es",
+      "lastName": "Farrell",
+    },
+    "comment": "Iusto aut quae non asperiores eius illo ut.",
+    "created": 1508760000,
+    "id": "59edd93052db76aefs2b36ee_TEST",
+    "likes": Array [
+      Object {
+        "firstName": "Harold",
+        "id": "52edd9352db76aeff2b34ed",
+        "lastName": "Cassin",
+      },
+    ],
+  },
+  "type": "CREATE_POST_SUCCESS",
+}
+`;
+
+exports[`posts actions deletePost should produce a valid action creator 1`] = `
+Object {
+  "payload": "NOT_ID",
+  "type": "DELETE_POST",
+}
+`;
+
+exports[`posts actions deletePostFail should produce a valid action creator 1`] = `
+Object {
+  "error": true,
+  "payload": "NOT_AN_ERROR",
+  "type": "DELETE_POST_FAIL",
+}
+`;
+
+exports[`posts actions deletePostSuccess should produce a valid action creator 1`] = `
+Object {
+  "payload": "NOT_ID",
+  "type": "DELETE_POST_SUCCESS",
+}
+`;
+
+exports[`posts actions dislikePost should produce a valid action creator 1`] = `
+Object {
+  "payload": "NOT_ID",
+  "type": "DISLIKE_POST",
+}
+`;
+
+exports[`posts actions dislikePostFail should produce a valid action creator 1`] = `
+Object {
+  "error": true,
+  "payload": "NOT_AN_ERROR",
+  "type": "DISLIKE_POST_FAIL",
+}
+`;
+
+exports[`posts actions dislikePostSuccess should produce a valid action creator 1`] = `
+Object {
+  "payload": Object {
+    "postId": "NOT_ID",
+    "user": Object {},
+  },
+  "type": "DISLIKE_POST_SUCCESS",
+}
+`;
+
+exports[`posts actions fetchPosts should produce a valid action creator 1`] = `
+Object {
+  "type": "FETCH_POSTS",
+}
+`;
+
+exports[`posts actions fetchPostsFail should produce a valid action creator 1`] = `
+Object {
+  "error": true,
+  "payload": "NOT_AN_ERROR",
+  "type": "FETCH_POSTS_FAIL",
+}
+`;
+
+exports[`posts actions fetchPostsSuccess should produce a valid action creator 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "author": Object {
+        "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+        "firstName": "Tristian",
+        "groupId": "844t1zdqp0",
+        "id": "34edd9c052db76aeff2b33es",
+        "lastName": "Farrell",
+      },
+      "comment": "Iusto aut quae non asperiores eius illo ut.",
+      "created": 1508760000,
+      "id": "59edd93052db76aefs2b36ee_TEST",
+      "likes": Array [
+        Object {
+          "firstName": "Harold",
+          "id": "52edd9352db76aeff2b34ed",
+          "lastName": "Cassin",
+        },
+      ],
+    },
+    Object {
+      "author": Object {
+        "avatar": "https://lab.lectrum.io/redux/api/image/844t1zdqp0/placeholder.jpg",
+        "firstName": "Tristian",
+        "groupId": "844t1zdqp0",
+        "id": "34edd9c052db76aeff2b33es",
+        "lastName": "Farrell",
+      },
+      "comment": "Iusto aut quae non asperiores eius illo ut.",
+      "created": 1508760000,
+      "id": "59edd93052db76aefs2b36ed_TEST",
+      "likes": Array [
+        Object {
+          "firstName": "Harold",
+          "id": "52edd9352db76aeff2b34ed",
+          "lastName": "Cassin",
+        },
+      ],
+    },
+  ],
+  "type": "FETCH_POSTS_SUCCESS",
+}
+`;
+
+exports[`posts actions likePost should produce a valid action creator 1`] = `
+Object {
+  "payload": "NOT_ID",
+  "type": "LIKE_POST",
+}
+`;
+
+exports[`posts actions likePostFail should produce a valid action creator 1`] = `
+Object {
+  "error": true,
+  "payload": "NOT_AN_ERROR",
+  "type": "LIKE_POST_FAIL",
+}
+`;
+
+exports[`posts actions likePostSuccess should produce a valid action creator 1`] = `
+Object {
+  "payload": Object {
+    "postId": "NOT_ID",
+    "user": Object {},
+  },
+  "type": "LIKE_POST_SUCCESS",
+}
+`;
