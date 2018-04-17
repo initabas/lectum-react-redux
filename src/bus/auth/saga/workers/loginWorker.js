@@ -18,7 +18,7 @@ export function* loginWorker ({ payload: credentials }) {
         });
     
         if (response.status !== 200) {
-            throw new Error('Load posts error');
+            throw new Error('Login error');
         }
     
         const { data: profile, message } = yield call([response, response.json]);

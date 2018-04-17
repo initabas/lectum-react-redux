@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "classnames": "^2.2.5",
+        "core-js": "^2.5.5",
         "gsap": "^1.20.2",
         "history": "^4.7.2",
         "immutable": "^3.8.2",
@@ -96,7 +97,8 @@
         ],
         "setupFiles": [
             "<rootDir>/config/polyfills.js",
-            "raf/polyfill"
+            "raf/polyfill",
+            "<rootDir>/config/jest/mocks.js"
         ],
         "testMatch": [
             "<rootDir>/src/**/__tests__/**/*.js?(x)",

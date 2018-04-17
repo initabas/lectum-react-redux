@@ -26,6 +26,16 @@ const mapDispatchToProps = {
     watchPosts,
 };
 
+
+// const mergeProps = (mapStateResult, mapDispatchResult, props) => {
+    
+//     return {
+//         ...mapStateResult,
+//         ...props,
+//         ...mapDispatchResult
+//     }
+// }
+
 @withRouter
 @connect(mapStateToProps, mapDispatchToProps)
 @hot(module)
@@ -45,7 +55,6 @@ export default class Routes extends Component {
 
         const token = localStorage.getItem('@@token');
 
-        console.log(this.props);
         token ? authenticate(token) : initialize();
 
         if (authenticated) {
@@ -66,13 +75,13 @@ export default class Routes extends Component {
     }
 
     render () {
-        const { initialized, authenticated, watchPosts } = this.props;
+        const { initialized, authenticated } = this.props;
 
         return initialized ? (
             <Catcher>
                 <Switch>
                     { !authenticated && <Public /> }
-                    <Private watchPosts = { watchPosts } />
+                    <Private watchPosts = { this.props.watchPosts } />
                 </Switch> 
             </Catcher>
         ) : (

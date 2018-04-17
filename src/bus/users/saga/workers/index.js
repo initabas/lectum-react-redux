@@ -1,0 +1,1 @@
+export { fetchUsersWorker } from './fetchUsersWorker';

@@ -1,5 +1,7 @@
 // Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 // Components
 import {
@@ -9,7 +11,23 @@ import {
     Catcher,
     ProfileForm
 } from 'components';
+import { profileActions } from 'bus/profile/actions';
 
+const mapStateToProps = (state) => {
+    
+    return {
+        profile: state.profile,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        actions: bindActionCreators({ fillProfile: profileActions.fillProfile }, dispatch)
+    }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Profile extends Component {
     render () {
         return (
@@ -18,7 +36,7 @@ export default class Profile extends Component {
                 <Spinner />
                 <Navigation />
                 <Catcher>
-                    <ProfileForm />
+                    <ProfileForm { ...this.props }/>
                 </Catcher>
             </>
         );
